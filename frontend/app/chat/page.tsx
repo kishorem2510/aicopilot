@@ -55,15 +55,15 @@ export default function ChatPage() {
         { question },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-     setMessages((prev) => [
-  ...prev,
-  {
-    role: "assistant",
-    content: res.data.answer,
-    sources: res.data.sources,
-    similarity_scores: res.data.similarity_scores,
-  },
-]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: res.data.answer,
+          sources: res.data.sources,
+          similarity_scores: res.data.similarity_scores,
+        },
+      ]);
     } catch (err: any) {
       if (err.response?.status === 401) {
         toast.error("Session expired. Please login again.");
@@ -100,7 +100,7 @@ export default function ChatPage() {
               <Bot size={20} className="text-white" />
             </div>
             <div>
-              <h1 className="text-white font-bold text-sm">NS AI Copilot</h1>
+              <h1 className="text-white font-bold text-sm">SaaS Copilot</h1>
               <p className="text-purple-400 text-xs">AI Support</p>
             </div>
           </div>
@@ -165,9 +165,8 @@ export default function ChatPage() {
           {messages.map((msg, index) => (
             <div key={index} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
               <div className={`max-w-2xl ${msg.role === "user" ? "order-2" : "order-1"}`}>
-                {/* Avatar */}
                 <div className={`flex items-start gap-3 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === "user" ? "bg-purple-600" : "bg-[#2d2d4e]"}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${msg.role === "user" ? "bg-purple-600" : "bg-[#2d2d4e]"}`}>
                     {msg.role === "user" ? <User size={14} className="text-white" /> : <Bot size={14} className="text-purple-400" />}
                   </div>
 
@@ -181,36 +180,36 @@ export default function ChatPage() {
                       {msg.content}
                     </div>
 
-                    {/* Sources */}
+                    {/* Sources with Similarity Scores */}
                     {msg.sources && msg.sources.length > 0 && (
-  <div className="mt-2">
-    <button
-      onClick={() => toggleSources(index)}
-      className="flex items-center gap-1 text-xs text-purple-400 hover:text-purple-300 transition"
-    >
-      {expandedSources.includes(index) ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
-      {expandedSources.includes(index) ? "Hide" : "Show"} sources ({msg.sources.length})
-    </button>
+                      <div className="mt-2">
+                        <button
+                          onClick={() => toggleSources(index)}
+                          className="flex items-center gap-1 text-xs text-purple-400 hover:text-purple-300 transition"
+                        >
+                          {expandedSources.includes(index) ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+                          {expandedSources.includes(index) ? "Hide" : "Show"} sources ({msg.sources.length})
+                        </button>
 
-    {expandedSources.includes(index) && (
-      <div className="mt-2 space-y-2">
-        {msg.sources.map((source, i) => (
-          <div key={i} className="bg-[#0f0f1a] border border-purple-900/20 rounded-xl p-3 text-xs text-gray-400 leading-relaxed">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-purple-500 font-semibold">Source {i + 1}</span>
-              {msg.similarity_scores && msg.similarity_scores[i] !== undefined && (
-                <span className="bg-purple-900/30 text-purple-300 px-2 py-0.5 rounded-full text-xs font-medium">
-                  Score: {msg.similarity_scores[i]}
-                </span>
-              )}
-            </div>
-            {source}
-          </div>
-        ))}
-      </div>
-    )}
-  </div>
-)}
+                        {expandedSources.includes(index) && (
+                          <div className="mt-2 space-y-2">
+                            {msg.sources.map((source, i) => (
+                              <div key={i} className="bg-[#0f0f1a] border border-purple-900/20 rounded-xl p-3 text-xs text-gray-400 leading-relaxed">
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-purple-500 font-semibold">Source {i + 1}</span>
+                                  {msg.similarity_scores && msg.similarity_scores[i] !== undefined && (
+                                    <span className="bg-purple-900/30 text-purple-300 px-2 py-0.5 rounded-full text-xs font-medium">
+                                      Score: {msg.similarity_scores[i]}
+                                    </span>
+                                  )}
+                                </div>
+                                {source}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
