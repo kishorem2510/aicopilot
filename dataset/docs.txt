@@ -1,0 +1,59 @@
+How to reset password:
+Go to Settings → Security → Reset Password.
+
+How to change email:
+Open profile settings and update email address.
+
+How to cancel subscription:
+Go to Billing → Manage Plan → Cancel Subscription.
+
+How to create account:
+Click signup and verify your email.
+
+How to update payment method:
+Go to Billing → Payment Methods → Add Card.
+
+How to contact support:
+Send email to support@company.com.
+
+How to enable two-factor authentication:
+Go to Security settings and enable 2FA.
+
+How to delete account:
+Go to Account Settings → Delete Account.
+
+How to change username:
+Go to profile settings and update your username.
+
+How to view billing history:
+Open Billing → Payment History.
+
+How to upgrade subscription:
+Go to Billing → Upgrade Plan.
+
+How to downgrade subscription:
+Go to Billing → Manage Plan → Change Plan.
+
+How to enable notifications:
+Go to settings → notifications → enable alerts.
+
+How to disable notifications:
+Go to settings → notifications → turn off alerts.
+
+How to generate API key:
+Go to developer settings → create new API key.
+
+How to revoke API key:
+Open developer settings → delete API key.
+
+How to change password:
+Go to security settings → change password.
+
+How to update profile photo:
+Go to profile settings → upload photo.
+
+How to logout from account:
+Click profile → logout.
+
+How to verify email address:
+Open email verification link sent to your inbox.
