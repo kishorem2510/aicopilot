@@ -1,14 +1,15 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
 import axios from "axios";
+import { Bot, ChevronDown, ChevronUp, LogOut, Send, Sparkles, User } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { Bot, Send, LogOut, User, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
   sources?: string[];
+  similarity_scores?: number[];
 }
 
 export default function ChatPage() {
@@ -54,14 +55,15 @@ export default function ChatPage() {
         { question },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: res.data.answer,
-          sources: res.data.sources,
-        },
-      ]);
+     setMessages((prev) => [
+  ...prev,
+  {
+    role: "assistant",
+    content: res.data.answer,
+    sources: res.data.sources,
+    similarity_scores: res.data.similarity_scores,
+  },
+]);
     } catch (err: any) {
       if (err.response?.status === 401) {
         toast.error("Session expired. Please login again.");
@@ -181,26 +183,34 @@ export default function ChatPage() {
 
                     {/* Sources */}
                     {msg.sources && msg.sources.length > 0 && (
-                      <div className="mt-2">
-                        <button
-                          onClick={() => toggleSources(index)}
-                          className="flex items-center gap-1 text-xs text-purple-400 hover:text-purple-300 transition"
-                        >
-                          {expandedSources.includes(index) ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
-                          {expandedSources.includes(index) ? "Hide" : "Show"} sources ({msg.sources.length})
-                        </button>
+  <div className="mt-2">
+    <button
+      onClick={() => toggleSources(index)}
+      className="flex items-center gap-1 text-xs text-purple-400 hover:text-purple-300 transition"
+    >
+      {expandedSources.includes(index) ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+      {expandedSources.includes(index) ? "Hide" : "Show"} sources ({msg.sources.length})
+    </button>
 
-                        {expandedSources.includes(index) && (
-                          <div className="mt-2 space-y-2">
-                            {msg.sources.map((source, i) => (
-                              <div key={i} className="bg-[#0f0f1a] border border-purple-900/20 rounded-xl p-3 text-xs text-gray-400 leading-relaxed">
-                                <span className="text-purple-500 font-semibold">Source {i + 1}:</span> {source}
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    )}
+    {expandedSources.includes(index) && (
+      <div className="mt-2 space-y-2">
+        {msg.sources.map((source, i) => (
+          <div key={i} className="bg-[#0f0f1a] border border-purple-900/20 rounded-xl p-3 text-xs text-gray-400 leading-relaxed">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-purple-500 font-semibold">Source {i + 1}</span>
+              {msg.similarity_scores && msg.similarity_scores[i] !== undefined && (
+                <span className="bg-purple-900/30 text-purple-300 px-2 py-0.5 rounded-full text-xs font-medium">
+                  Score: {msg.similarity_scores[i]}
+                </span>
+              )}
+            </div>
+            {source}
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+)}
                   </div>
                 </div>
               </div>
