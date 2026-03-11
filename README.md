@@ -8,7 +8,7 @@
 
 | | URL |
 |---|---|
-| 🌐 **Frontend (Live App)** | https://aicopilot-frontend.vercel.app |
+| 🌐 **Frontend (Live App)** | https://aicopilot-delta.vercel.app/login |
 | ⚙️ **Backend API** | https://kishorem2510-aicopilot-backend.hf.space |
 | 📖 **API Docs (Swagger)** | https://kishorem2510-aicopilot-backend.hf.space/docs |
 | 💻 **GitHub Repository** | https://github.com/kishorem2510/aicopilot |
