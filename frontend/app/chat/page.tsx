@@ -268,3 +268,5 @@ export default function ChatPage() {
     </div>
   );
 }
+
+// Added Similarity Scores Display
